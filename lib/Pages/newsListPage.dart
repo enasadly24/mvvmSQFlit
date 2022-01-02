@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mvvm_buildrealproject/Controller/FavoritPagecontroller.dart';
+import 'package:mvvm_buildrealproject/DataBase/DbHelper.dart';
+import 'package:mvvm_buildrealproject/Login_Signup_Widget/genTextFormField.dart';
+import 'package:mvvm_buildrealproject/Login_signup_Screens/SignUp.dart';
+import 'package:mvvm_buildrealproject/Model/USer_Model.dart';
+import 'package:mvvm_buildrealproject/ModelSerlization/Article.dart';
+import 'package:mvvm_buildrealproject/Pages/AppDrawer.dart';
+import 'package:mvvm_buildrealproject/Pages/FavoritPage.dart';
 import 'package:mvvm_buildrealproject/Pages/NewsArticleDetailsPage.dart';
+import 'package:mvvm_buildrealproject/Services/NewsListService.dart';
 import 'package:mvvm_buildrealproject/ViewModel/newsArticleListViewModel.dart';
 import 'package:mvvm_buildrealproject/ViewModel/newsArticleViewModel.dart';
 import 'package:mvvm_buildrealproject/Widget/newslist.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsList extends StatefulWidget {
 
@@ -12,13 +23,22 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
+  NewsServices itemServices= NewsServices();
+  List<Article>items=[];
+  final HomePageController controller = Get.put(HomePageController());
   final _controller = TextEditingController();
+  Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+  DbHelper dbHelper;
+  final _conUserName = TextEditingController();
+  String uid;
+
   @override
   void initState() {
     Future.microtask(() =>Provider.of<NewsArticleListViewModel>(context, listen: false)
         .populateTopHeadlines());
+    getUserData();
     super.initState();
-
+   dbHelper= DbHelper();
   }
   void _showNewsArticlesDetails(
       BuildContext context, NewsArticleViewModel article) {
@@ -28,14 +48,47 @@ class _NewsListState extends State<NewsList> {
             builder: (context) => NewsArticleDetailsPage(article: article)));
   }
 
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await _pref;
+
+    setState(() {
+      _conUserName.text = sp.getString("User_Name");
+       //uid= _conUserName.text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<NewsArticleListViewModel>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Top News"),
+          title: Text('${_conUserName.text}'),
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignUpScreen()));
+            }, icon: Icon(Icons.logout)),
+            Padding(padding: EdgeInsets.symmetric(horizontal:10 ),
+              child: InkResponse(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FavoritPage()));
+                },
+                child: Stack(
+                  children: [
+                    GetBuilder<HomePageController>(builder: (_)=>Align(
+                      child: Text(controller.favoritItems.length>0?controller.favoritItems.length.toString():""),
+                      alignment: Alignment.topLeft,
+                    )),
+                    Align(
+                      child: Icon(Icons.favorite,color: Colors.white),
+                      alignment: Alignment.center,
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
+        drawer: AppDrawer(),
         body: Column(
           children: <Widget>[
             TextField(
@@ -59,10 +112,7 @@ class _NewsListState extends State<NewsList> {
                     },
                   )),
             ),
-            /*Expanded(
-                child: vm.articles.isEmpty
-                    ? Center(child: CircularProgressIndicator())
-                    : ListNews(articles: vm.articles))*/
+
             _buildList(context,vm)
           ],
         ));

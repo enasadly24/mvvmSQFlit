@@ -16,6 +16,7 @@ import 'package:mvvm_buildrealproject/ViewModel/newsArticleViewModel.dart';
 class NewsArticleListViewModel extends ChangeNotifier{
      var loadingStatus = LoadingStatus.searching;
   List<NewsArticleViewModel> articles= List<NewsArticleViewModel>();
+  List<NewsArticle> _items;
  //response populate top head line
 // need access to webservic
 Future<void>search(String Keyword)async{
@@ -41,4 +42,5 @@ Future<void> populateTopHeadlines() async{ // calling web service so it async
  this.loadingStatus= this.articles.isEmpty? LoadingStatus.empty:LoadingStatus.completed;
  notifyListeners();
 }
+
 }

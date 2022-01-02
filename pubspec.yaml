@@ -34,13 +34,32 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  get: ^4.3.8
   http: ^0.13.4
   provider: ^6.0.1
   webview_flutter: ^3.0.0
+  path_provider: ^2.0.8
+  #sqflite: ^1.3.0
+  toast: ^0.1.5
+  shared_preferences: ^2.0.11
+  splashscreen: ^1.3.5
+  flutter_native_splash: ^1.3.2
+  favorite_button: ^0.0.4
+  sqflite: ^2.0.0+3
+  json_annotation: ^4.0.1
+
+
+flutter_native_splash:
+  image: "Images/NewsPaper.jpg"
+  android_gravity: center
+  fill: true
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_model:
+  build_runner: ^2.0.5
+  json_serializable: ^4.1.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -63,6 +82,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - Images/splash_Logo.png
+    - Images/NewsPaper.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
