@@ -1,3 +1,4 @@
+/*
 
 
 import 'package:mvvm_buildrealproject/DataBase/APIdataBase.dart';
@@ -72,4 +73,4 @@ class NewsServices{
     Future addtoFavorit(Article article)async{
     return await sqlService.addToFavorit(article);
     }
-}
+}*/

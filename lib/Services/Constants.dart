@@ -20,3 +20,9 @@ class BaseUrl{
 }*/
 final formKey = new GlobalKey<FormState>();
 
+const String tableNews = 'news';
+const String columnTitle = 'title';
+const String columnDesc = 'description';
+const String columnUrl = 'url';
+const String columnUrlToImage = 'urlToImage';
+const String columnId = 'id';

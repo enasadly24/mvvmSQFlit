@@ -43,19 +43,6 @@ class DbHelper {
         //" PRIMARY KEY ($C_UserID)"
         ")");
   }
-/*  Future saveLove(UserModel data)async{
-    var dbclient= await db;
-    var res=await dbclient.rawInsert
-      ('INSERT INTO $Table_User(c_isFavorit) VALUES(${data.isFavourit?1:0})');
-    return res;
-  }
-
-  Future setItemAsFavourite(int id,bool flag)async{
-    var dbclient= await db;
-    var query='UPDATE $Table_User set c_isFavorit=? WHERE id=?';
-    return await dbclient.rawUpdate(query,[flag?1:0,id]);
-  }*/
-
   Future<int> saveData(UserModel user) async {
     var dbClient = await db;
     var res = await dbClient.insert(Table_User, user.toMap());

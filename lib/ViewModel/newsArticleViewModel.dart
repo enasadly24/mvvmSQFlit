@@ -22,4 +22,6 @@ class NewsArticleViewModel{
   String get url{
     return newsArticle.url;
   }
+
+
 }

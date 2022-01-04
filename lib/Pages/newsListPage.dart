@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvvm_buildrealproject/Controller/FavoritPagecontroller.dart';
 import 'package:mvvm_buildrealproject/DataBase/DbHelper.dart';
 import 'package:mvvm_buildrealproject/Login_Signup_Widget/genTextFormField.dart';
 import 'package:mvvm_buildrealproject/Login_signup_Screens/SignUp.dart';
 import 'package:mvvm_buildrealproject/Model/USer_Model.dart';
-import 'package:mvvm_buildrealproject/ModelSerlization/Article.dart';
 import 'package:mvvm_buildrealproject/Pages/AppDrawer.dart';
 import 'package:mvvm_buildrealproject/Pages/FavoritPage.dart';
 import 'package:mvvm_buildrealproject/Pages/NewsArticleDetailsPage.dart';
@@ -23,9 +21,9 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
-  NewsServices itemServices= NewsServices();
+ /* NewsServices itemServices= NewsServices();
   List<Article>items=[];
-  final HomePageController controller = Get.put(HomePageController());
+  final HomePageController controller = Get.put(HomePageController());*/
   final _controller = TextEditingController();
   Future<SharedPreferences> _pref = SharedPreferences.getInstance();
   DbHelper dbHelper;
@@ -67,25 +65,7 @@ class _NewsListState extends State<NewsList> {
             IconButton(onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignUpScreen()));
             }, icon: Icon(Icons.logout)),
-            Padding(padding: EdgeInsets.symmetric(horizontal:10 ),
-              child: InkResponse(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FavoritPage()));
-                },
-                child: Stack(
-                  children: [
-                    GetBuilder<HomePageController>(builder: (_)=>Align(
-                      child: Text(controller.favoritItems.length>0?controller.favoritItems.length.toString():""),
-                      alignment: Alignment.topLeft,
-                    )),
-                    Align(
-                      child: Icon(Icons.favorite,color: Colors.white),
-                      alignment: Alignment.center,
-                    )
-                  ],
-                ),
-              ),
-            )
+
           ],
         ),
         drawer: AppDrawer(),

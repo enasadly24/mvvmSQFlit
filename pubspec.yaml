@@ -46,7 +46,15 @@ dependencies:
   flutter_native_splash: ^1.3.2
   favorite_button: ^0.0.4
   sqflite: ^2.0.0+3
-  json_annotation: ^4.0.1
+  localstorage:
+  google_fonts: ^2.0.0
+  json_store:
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.0
+  sizer: ^2.0.11
+  device_preview: ^1.0.0
+
+
 
 
 flutter_native_splash:
@@ -57,9 +65,7 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_model:
-  build_runner: ^2.0.5
-  json_serializable: ^4.1.3
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
